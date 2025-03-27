@@ -3,10 +3,11 @@ namespace Snake2048
 {
     public interface IInteractive
     {
-        public void Interact(ICharacter character);
+        public void Interact(IInteractor character);
     }
-    public interface ICharacter
+    public interface IInteractor
     {
-        public void AddCube();
+        public int Size { get; }
+        public void AddCube(int pow);
     }
 }

@@ -2,24 +2,15 @@ using UnityEngine;
 
 namespace Snake2048
 {
-    public class InteractiveCube : MonoBehaviour, IInteractive
+    public class InteractiveCube : Cube, IInteractive
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
 
-        }
-
-        public void Interact(ICharacter character)
+        public void Interact(IInteractor character)
         {
-            character.AddCube();
+            if(character.Size<power) return;
+            character.AddCube(power);
             Destroy(gameObject);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
     }
 }
