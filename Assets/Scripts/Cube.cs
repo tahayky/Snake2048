@@ -4,13 +4,21 @@ using UnityEngine;
 using DG.Tweening;
 namespace Snake2048
 {
-    public class Cube : MonoBehaviour
+    public class Cube : MonoBehaviour,IInteractive
     {
         public MaterialList materialList;
         public NumberAbbreviation numberAbbreviation;
         // Mesh Renderer referansı
         public MeshRenderer meshRenderer;
-        
+
+        public CharacterBase Owner { get; set; }
+        public BoxCollider boxCollider;
+        public bool MarkedForDestroy { get; set; }
+        public virtual void Initialize()
+        {
+            boxCollider = GetComponent<BoxCollider>();
+        }
+
         // Bu fonksiyon ile verilen index'e göre material atanır
         public void SetMaterialByIndex(int index)
         {
@@ -26,10 +34,7 @@ namespace Snake2048
         
             // Material'i ata
             meshRenderer.material = materialList.materials[actualIndex];
-        
-            Debug.Log("Material değiştirildi. Index: " + index + 
-                      ", Gerçek Index: " + actualIndex + 
-                      ", Material: " + materialList.materials[actualIndex].name);
+            
         }
         void Start()
         {
@@ -62,5 +67,20 @@ namespace Snake2048
             SetNumber(power+1);
             InflateAnimation(power,enlargeFactor);
         }
+
+        private void Update()
+        {
+            if(MarkedForDestroy)Destroy(this.gameObject);
+        }
+
+        public virtual void Interact(CharacterBase character)
+        {
+            if(MarkedForDestroy) return;
+            if(character.Size<power) return;
+            MarkedForDestroy = true;
+            character.AddCube(power);
+            Owner.WaitForBreakTail(this);
+        }
+        
     }
 }

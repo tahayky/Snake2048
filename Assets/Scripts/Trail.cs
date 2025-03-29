@@ -164,9 +164,10 @@ namespace Snake2048
                     {
                         Gizmos.color = new Color(1, 0, 0, 0.7f); // Kırmızı, şeffaf
                         Gizmos.DrawSphere(pos, 0.1f);
-                        
-                        // Mesafe değerini de göster
+#if UNITY_EDITOR
                         UnityEditor.Handles.Label(pos + Vector3.up * 0.2f, $"D:{distance:F1}");
+
+#endif
                     }
                 }
                 catch {

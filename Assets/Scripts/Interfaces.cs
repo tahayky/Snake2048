@@ -3,11 +3,12 @@ namespace Snake2048
 {
     public interface IInteractive
     {
-        public void Interact(IInteractor character);
+        public bool MarkedForDestroy { get; set; }
+        public void Interact(CharacterBase character);
     }
-    public interface IInteractor
+    public interface IScorable
     {
-        public int Size { get; }
-        public void AddCube(int pow);
+        public string Name { get; }
+        public float Score { get; }
     }
 }

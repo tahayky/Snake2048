@@ -1,8 +1,11 @@
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "MaterialList", menuName = "Snake2048/MaterialList", order = 1)]
-public class MaterialList : ScriptableObject
+namespace Snake2048
 {
-    public Material[] materials;
+
+    [CreateAssetMenu(fileName = "MaterialList", menuName = "Snake2048/MaterialList", order = 1)]
+    public class MaterialList : ScriptableObject
+    {
+        public Material[] materials;
+    }
 }
